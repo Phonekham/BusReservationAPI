@@ -4,17 +4,187 @@ type Query {
 }
 
 type Mutation {
-  createUser(username: String!): User!
-  login(username: String!, password: String!): User!
+  # auth
+  createEmployee(input: EmployeeInput!): Employee!
+  loginEmployee(username: String!, password: String!): Employee!
+  registerMember(input: MemberInput!): Member!
+  loginMember(username: String!, password: String!): Member!
+  # Create
+  addCompany(input: CompanyInput!): Company!
+  addBusType(input: BusTypeInput!): BusType!
+  addBus(input: BusInput!): Bus!
+  addRoute(input: RouteInput!): Route!
+  addDepartureTime(input: DepartureTimeInput!): DepartureTime!
+  addSeat(input: SeatInput!): Seat!
+
+  # Update
+  # Delete
+  # Services
+  bookTicket(input: BookingInput!): Booking!
+  saleTicket(input: TicketInput!): Ticket!
 }
 
 # scalar Types
 scalar Date
 
 # Input Types
+input EmployeeInput {
+  username: String!
+  password: String!
+  email: String
+  address: String
+  phone: String
+  firstname: String!
+  lastname: String!
+}
+input CompanyInput {
+  name: String!
+  joinDate: Date
+}
+input BusTypeInput {
+  type: String!
+  description: String
+  capacity: Int
+}
+input BusInput {
+  licencePlate: String!
+  busType: ID!
+  company: ID!
+}
+input SeatInput {
+  number: Int!
+  name: String
+}
+input RouteInput {
+  routeName: String!
+  routeEngname: String!
+  distance: Int!
+  departure: String!
+  destination: String!
+}
+input DepartureTimeInput {
+  time: String!
+  fare: Float!
+  isBookable: Boolean!
+  busType: ID!
+  route: ID!
+}
+input MemberInput {
+  username: String!
+  password: String!
+  email: String
+  phone: String
+  firstname: String!
+  lastname: String!
+}
+input TicketInput {
+  ticketNo: Int!
+  firstname: String!
+  lastname: String!
+  departureTime: ID!
+  bus: ID!
+  seat: ID!
+  price: Float!
+  employee: ID!
+}
+input BookingInput {
+  departureTime: ID!
+  bookingItem: ID!
+  bookingDate: Date!
+  departureDate: Date!
+  member: Member!
+}
 
 # Custom Types
 type User {
   id: ID!
   username: String!
+  password: String!
+  email: String
+  address: String
+  phone: String
+  firstname: String!
+  lastname: String!
+}
+type BusType {
+  id: ID!
+  type: String!
+  description: String
+  capacity: Int
+}
+type Company {
+  id: ID!
+  name: String!
+  joinDate: Date
+}
+type Bus {
+  id: ID!
+  licencePlate: String!
+  busType: BusType!
+  company: Company!
+}
+type Seat {
+  id: ID!
+  number: Int!
+  name: String
+}
+type Route {
+  id: ID!
+  routeName: String!
+  routeEngname: String!
+  distance: Int!
+  departure: String!
+  destination: String!
+}
+type DepartureTime {
+  id: ID!
+  time: String!
+  fare: Float!
+  isBookable: Boolean!
+  busType: BusType!
+  route: Route!
+}
+type Employee {
+  id: ID!
+  username: String!
+  password: String!
+  email: String
+  address: String
+  phone: String
+  firstname: String!
+  lastname: String!
+}
+type Member {
+  id: ID!
+  username: String!
+  password: String!
+  email: String
+  phone: String
+  firstname: String!
+  lastname: String!
+}
+type Ticket {
+  id: ID!
+  ticketNo: Int!
+  firstname: String!
+  lastname: String!
+  departureTime: DepartureTime!
+  bus: Bus!
+  seat: Seat!
+  price: Float!
+  employee: Employee!
+}
+type BookingItem {
+  id: ID!
+  seat: Seat!
+  firstname: String!
+  lastname: String!
+}
+type Booking {
+  id: ID!
+  departureTime: DepartureTime!
+  bookingItem: BookingItem!
+  bookingDate: Date!
+  departureDate: Date!
+  member: Member!
 }
