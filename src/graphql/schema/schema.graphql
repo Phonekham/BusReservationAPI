@@ -1,0 +1,20 @@
+# Essential Types
+type Query {
+  users: String
+}
+
+type Mutation {
+  createUser(username: String!): User!
+  login(username: String!, password: String!): User!
+}
+
+# scalar Types
+scalar Date
+
+# Input Types
+
+# Custom Types
+type User {
+  id: ID!
+  username: String!
+}
