@@ -1,6 +1,22 @@
 # Essential Types
 type Query {
-  users: String
+  # Query For Employees
+  employees: [Employee!]
+  companies: [Company!]
+  busTypes: [BusType!]
+  buses: [Bus!]
+  routes: [Route!]
+  departureTimes: [DepartureTime!]
+  seats: [Seat!]
+  bookings: [Booking!]
+  company(id: ID!): Company!
+  employee(id: ID!): Employee!
+  busType(id: ID): BusType
+  bus(id: ID!): Bus!
+  route(id: ID!): Route!
+  departureTime(id: ID!): DepartureTime!
+  # Query For Member
+  checkDepartureTime(departureDate: Date!, route: ID!): DepartureTime!
 }
 
 type Mutation {
@@ -16,9 +32,22 @@ type Mutation {
   addRoute(input: RouteInput!): Route!
   addDepartureTime(input: DepartureTimeInput!): DepartureTime!
   addSeat(input: SeatInput!): Seat!
-
   # Update
+  updateCompany(input: UpdateCompanyInput!): Company!
+  updateEmployee(input: UpdateEmployeeInput!): Employee!
+  updateBusType(input: UpdateBusTypeInput!): BusType!
+  updateBus(input: UpdateBusTypeInput!): Bus!
+  updateRoute(input: UpdateRouteInput!): Route!
+  updateDepartureTime(input: UpdateDepartureTimeInput!): DepartureTime!
+  updateSeat(input: UpdateSeatInput!): Seat!
   # Delete
+  deleteCompany(id: ID!): Company!
+  deleteEmployee(id: ID!): Employee!
+  deleteBusType(id: ID!): BusType!
+  deleteBus(id: ID!): Bus!
+  deleteRoute(id: ID!): Route!
+  deleteDepartureTime(id: ID!): DepartureTime!
+  deleteSeat(id: ID!): Seat!
   # Services
   bookTicket(input: BookingInput!): Booking!
   saleTicket(input: TicketInput!): Ticket!
@@ -93,6 +122,65 @@ input BookingInput {
   bookingDate: Date!
   departureDate: Date!
   member: Member!
+}
+
+# update input types
+input UpdateCompanyInput {
+  id: ID!
+  name: String
+  joinDate: Date
+}
+input UpdateEmployeeInput {
+  id: ID!
+  username: String
+  password: String
+  email: String
+  address: String
+  phone: String
+  firstname: String
+  lastname: String
+}
+input UpdateBusTypeInput {
+  id: ID!
+  type: String
+  description: String
+  capacity: Int
+}
+input UpdateBusInput {
+  id: ID!
+  licencePlate: String
+  busType: ID
+  company: ID
+}
+input UpdateSeatInput {
+  id: ID!
+  number: Int
+  name: String
+}
+input UpdateRouteInput {
+  id: ID!
+  routeName: String
+  routeEngname: String
+  distance: Int
+  departure: String
+  destination: String
+}
+input UpdateDepartureTimeInput {
+  id: ID!
+  time: String
+  fare: Float
+  isBookable: Boolean
+  busType: ID
+  route: ID
+}
+input UpdateMemberInput {
+  id: ID!
+  username: String
+  password: String
+  email: String
+  phone: String
+  firstname: String
+  lastname: String
 }
 
 # Custom Types
