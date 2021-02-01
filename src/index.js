@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 dotenv.config();
-import server from './src/server';
+import server from './server';
 const { PORT, DB_URI } = process.env;
 
 const createServer = async () => {

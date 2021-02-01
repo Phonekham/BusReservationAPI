@@ -60,6 +60,7 @@ scalar Date
 input EmployeeInput {
   username: String!
   password: String!
+  confirmPassword: String!
   email: String
   address: String
   phone: String
@@ -121,7 +122,7 @@ input BookingInput {
   bookingItem: ID!
   bookingDate: Date!
   departureDate: Date!
-  member: Member!
+  member: ID!
 }
 
 # update input types
