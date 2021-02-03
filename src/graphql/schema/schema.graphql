@@ -22,7 +22,7 @@ type Query {
 type Mutation {
   # auth
   createEmployee(input: EmployeeInput!): Employee!
-  loginEmployee(username: String!, password: String!): Employee!
+  loginEmployee(username: String!, password: String!): AuthData!
   registerMember(input: MemberInput!): Member!
   loginMember(username: String!, password: String!): Member!
   # Create
@@ -185,6 +185,10 @@ input UpdateMemberInput {
 }
 
 # Custom Types
+type AuthData {
+  employee: Employee!
+  jwt: String
+}
 type User {
   id: ID!
   username: String!

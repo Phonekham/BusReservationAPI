@@ -28,4 +28,19 @@ export default {
     password = await bcrypt.hash(password, 10);
     return Employee.create({ ...args.input, password });
   },
+  loginEmployee: async (parents, args, context, info) => {
+    const { username, password } = args;
+
+    //  check if password is correct
+    const employee = await Employee.findOne({ username });
+    const validPassword = await bcrypt.compare(password, employee.password);
+    if (!validPassword || !employee)
+      throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
+
+    const token = jwt.sign({ employee }, process.env.SECRET, {
+      expiresIn: '1days',
+    });
+    console.log(employee);
+    return { employee, jwt: token };
+  },
 };
