@@ -9,11 +9,11 @@ export default {
     // Validations
     if (!employee)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
-    const isBrandExist =
+    const isBusTypeExist =
       (await busTypes.findIndex((busType) => busType.type === type)) > -1;
     if (type.trim().toUpperCase() === '') {
       throw new UserInputError('ກາລະນາປ້ອນປະເພດລົດ');
-    } else if (isBrandExist) {
+    } else if (isBusTypeExist) {
       throw new UserInputError('ລົດປະເພດນີ້ມີແລ້ວ');
     }
     if (!capacity) {
@@ -23,5 +23,31 @@ export default {
     const newBusType = new BusType({ ...args.input });
     const busType = await newBusType.save();
     return busType;
+  },
+  updateBusType: async (parents, args, { employee }, info) => {
+    if (!employee)
+      throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
+    try {
+      const updateBusType = await BusType.findByIdAndUpdate(
+        args.input.id,
+        {
+          ...args.input,
+        },
+        { new: true }
+      );
+      return updateBusType;
+    } catch (error) {
+      throw new Error('Error', error);
+    }
+  },
+  deleteBusType: async (parents, args, { employee }, info) => {
+    if (!employee)
+      throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
+    try {
+      const deleteBusType = await BusType.findByIdAndDelete(args.id);
+      return deleteBusType;
+    } catch (error) {
+      throw new Error('Error', error);
+    }
   },
 };

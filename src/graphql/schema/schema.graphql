@@ -11,7 +11,7 @@ type Query {
   bookings: [Booking!]
   company(id: ID!): Company!
   employee(id: ID!): Employee!
-  busType(id: ID): BusType
+  busType(id: ID!): BusType!
   bus(id: ID!): Bus!
   route(id: ID!): Route!
   departureTime(id: ID!): DepartureTime!
