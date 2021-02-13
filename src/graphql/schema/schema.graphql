@@ -69,7 +69,9 @@ input EmployeeInput {
 }
 input CompanyInput {
   name: String!
-  joinDate: Date
+  address: String
+  tel: String
+  email: String
 }
 input BusTypeInput {
   type: String!
@@ -129,7 +131,9 @@ input BookingInput {
 input UpdateCompanyInput {
   id: ID!
   name: String
-  joinDate: Date
+  email: String
+  tel: String
+  address: String
 }
 input UpdateEmployeeInput {
   id: ID!
@@ -208,7 +212,9 @@ type BusType {
 type Company {
   id: ID!
   name: String!
-  joinDate: Date
+  address: String
+  tel: String
+  email: String
 }
 type Bus {
   id: ID!

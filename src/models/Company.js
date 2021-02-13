@@ -6,8 +6,16 @@ var companySchema = new Schema({
     type: String,
     required: true,
   },
-  joinDate: {
-    type: Date,
+  address: {
+    type: String,
+    required: true,
+  },
+  tel: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
     required: true,
   },
 });
