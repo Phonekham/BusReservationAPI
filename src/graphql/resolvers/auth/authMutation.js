@@ -33,14 +33,13 @@ export default {
 
     //  check if password is correct
     const employee = await Employee.findOne({ username });
+    if (!employee) throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
     const validPassword = await bcrypt.compare(password, employee.password);
-    if (!validPassword || !employee)
-      throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
+    if (!validPassword) throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
 
-    const token = jwt.sign({ employee }, process.env.SECRET, {
+    const token = jwt.sign({ user: employee }, process.env.SECRET, {
       expiresIn: '1days',
     });
-    console.log(employee);
     return { employee, jwt: token };
   },
 };

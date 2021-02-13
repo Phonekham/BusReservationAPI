@@ -186,7 +186,7 @@ input UpdateMemberInput {
 
 # Custom Types
 type AuthData {
-  employee: Employee!
+  employee: Employee
   jwt: String
 }
 type User {

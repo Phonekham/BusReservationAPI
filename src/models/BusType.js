@@ -8,11 +8,9 @@ var busTypeSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   capacity: {
     type: Number,
-    required: true,
   },
 });
 
