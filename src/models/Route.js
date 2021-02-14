@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 var routeSchema = new Schema({
   routeName: {
     type: String,
-    required: true,
   },
   routeEngName: {
     type: String,
@@ -17,6 +16,7 @@ var routeSchema = new Schema({
   departure: {
     type: String,
     required: true,
+    default: 'ວຽງຈັນ',
   },
   destination: {
     type: String,

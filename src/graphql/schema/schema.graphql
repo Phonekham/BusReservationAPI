@@ -88,10 +88,8 @@ input SeatInput {
   name: String
 }
 input RouteInput {
-  routeName: String!
-  routeEngname: String!
+  routeEngName: String!
   distance: Int!
-  departure: String!
   destination: String!
 }
 input DepartureTimeInput {
@@ -165,7 +163,7 @@ input UpdateSeatInput {
 input UpdateRouteInput {
   id: ID!
   routeName: String
-  routeEngname: String
+  routeEngName: String
   distance: Int
   departure: String
   destination: String
@@ -229,10 +227,10 @@ type Seat {
 }
 type Route {
   id: ID!
-  routeName: String!
-  routeEngname: String!
+  routeName: String
+  routeEngName: String!
   distance: Int!
-  departure: String!
+  departure: String
   destination: String!
 }
 type DepartureTime {

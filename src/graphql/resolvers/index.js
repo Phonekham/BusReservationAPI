@@ -6,6 +6,8 @@ import companyMutation from './Company/mutation';
 import companyQuery from './Company/Query';
 import busMutation from './Bus/mutation';
 import busQuery from './Bus/query';
+import routeMutation from './Route/mutation';
+import routeQuery from './Route/query';
 
 export default {
   Query: {
@@ -13,11 +15,13 @@ export default {
     ...busTypeQuery,
     ...companyQuery,
     ...busQuery,
+    ...routeQuery,
   },
   Mutation: {
     ...authMutation,
     ...busTypeMutation,
     ...companyMutation,
     ...busMutation,
+    ...routeMutation,
   },
 };
