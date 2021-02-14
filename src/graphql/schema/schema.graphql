@@ -36,7 +36,7 @@ type Mutation {
   updateCompany(input: UpdateCompanyInput!): Company!
   updateEmployee(input: UpdateEmployeeInput!): Employee!
   updateBusType(input: UpdateBusTypeInput!): BusType!
-  updateBus(input: UpdateBusTypeInput!): Bus!
+  updateBus(input: UpdateBusInput!): Bus!
   updateRoute(input: UpdateRouteInput!): Route!
   updateDepartureTime(input: UpdateDepartureTimeInput!): DepartureTime!
   updateSeat(input: UpdateSeatInput!): Seat!
