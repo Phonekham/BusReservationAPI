@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-var departureSchema = new Schema({
+var departureTimeSchema = new Schema({
   time: {
     type: String,
     required: true,
@@ -26,6 +26,6 @@ var departureSchema = new Schema({
   },
 });
 
-const Departure = mongoose.model('Departure', departureSchema);
+const DepartureTime = mongoose.model('DepartureTime', departureTimeSchema);
 
-export default Departure;
+export default DepartureTime;

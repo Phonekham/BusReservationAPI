@@ -8,6 +8,8 @@ import busMutation from './Bus/mutation';
 import busQuery from './Bus/query';
 import routeMutation from './Route/mutation';
 import routeQuery from './Route/query';
+import departureTimeMutation from './DepartureTime/departureTimeMutation';
+import departureTimeQuery from './DepartureTime/departureTimeQuery';
 
 export default {
   Query: {
@@ -16,6 +18,7 @@ export default {
     ...companyQuery,
     ...busQuery,
     ...routeQuery,
+    ...departureTimeQuery,
   },
   Mutation: {
     ...authMutation,
@@ -23,5 +26,6 @@ export default {
     ...companyMutation,
     ...busMutation,
     ...routeMutation,
+    ...departureTimeMutation,
   },
 };
