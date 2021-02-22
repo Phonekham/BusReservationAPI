@@ -10,6 +10,8 @@ import routeMutation from './Route/mutation';
 import routeQuery from './Route/query';
 import departureTimeMutation from './DepartureTime/departureTimeMutation';
 import departureTimeQuery from './DepartureTime/departureTimeQuery';
+import seatMutation from './Seat/seatMutation';
+import seatQuery from './Seat/seatQuery';
 
 export default {
   Query: {
@@ -19,6 +21,7 @@ export default {
     ...busQuery,
     ...routeQuery,
     ...departureTimeQuery,
+    ...seatQuery,
   },
   Mutation: {
     ...authMutation,
@@ -27,5 +30,6 @@ export default {
     ...busMutation,
     ...routeMutation,
     ...departureTimeMutation,
+    ...seatMutation,
   },
 };

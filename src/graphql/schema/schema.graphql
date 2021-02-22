@@ -8,7 +8,8 @@ type Query {
   routes: [Route!]
   departureTimes: [DepartureTime!]
   routeDepartureTime(route: ID!): [DepartureTime!]
-  seats: [Seat!]
+  seats(busType: ID!): [Seat!]
+  seat(id: ID!): Seat!
   bookings: [Booking!]
   company(id: ID!): Company!
   employee(id: ID!): Employee!
@@ -85,8 +86,8 @@ input BusInput {
   company: ID!
 }
 input SeatInput {
-  number: Int!
-  name: String
+  seatNo: String!
+  busType: ID!
 }
 input RouteInput {
   routeEngName: String!
@@ -158,8 +159,8 @@ input UpdateBusInput {
 }
 input UpdateSeatInput {
   id: ID!
-  number: Int
-  name: String
+  seatNo: String
+  busType: ID
 }
 input UpdateRouteInput {
   id: ID!
@@ -223,8 +224,8 @@ type Bus {
 }
 type Seat {
   id: ID!
-  number: Int!
-  name: String
+  seatNo: String!
+  busType: BusType!
 }
 type Route {
   id: ID!
