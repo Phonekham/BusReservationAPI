@@ -26,7 +26,11 @@ type Mutation {
   createEmployee(input: EmployeeInput!): Employee!
   loginEmployee(username: String!, password: String!): AuthData!
   registerMember(input: MemberInput!): Member!
-  loginMember(username: String!, password: String!): Member!
+  loginMember(
+    username: String
+    email: String
+    password: String!
+  ): MemberAuthData!
   # Create
   addCompany(input: CompanyInput!): Company!
   addBusType(input: BusTypeInput!): BusType!
@@ -104,6 +108,7 @@ input DepartureTimeInput {
 input MemberInput {
   username: String!
   password: String!
+  confirmPassword: String!
   email: String
   phone: String
   firstname: String!
@@ -191,6 +196,10 @@ input UpdateMemberInput {
 # Custom Types
 type AuthData {
   employee: Employee
+  jwt: String
+}
+type MemberAuthData {
+  member: Member
   jwt: String
 }
 type User {
