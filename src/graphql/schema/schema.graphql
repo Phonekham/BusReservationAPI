@@ -18,7 +18,7 @@ type Query {
   route(id: ID!): Route!
   departureTime(id: ID!): DepartureTime!
   # Query For Member
-  checkDepartureTime(departureDate: Date!, route: ID!): DepartureTime!
+  checkDepartureTime(departureDate: Date, route: ID): [DepartureTime!]
 }
 
 type Mutation {
