@@ -3,18 +3,18 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import Route from '../../../models/Route';
 
 export default {
-  routes: async (parents, args, { employee }, info) => {
+  routes: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
     }
     return await Route.find({});
   },
-  route: async (parents, args, { employee }, info) => {
+  route: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );

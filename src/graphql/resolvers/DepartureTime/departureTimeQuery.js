@@ -3,9 +3,9 @@ import { AuthenticationError, UserInputError } from 'apollo-server-express';
 import DepartureTime from '../../../models/DepartureTime';
 
 export default {
-  departureTimes: async (parents, args, { employee }, info) => {
+  departureTimes: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -14,9 +14,9 @@ export default {
       .populate({ path: 'busType' })
       .populate({ path: 'route' });
   },
-  departureTime: async (parents, args, { employee }, info) => {
+  departureTime: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -34,9 +34,9 @@ export default {
     }
     return departureTime;
   },
-  routeDepartureTime: async (parents, args, { employee }, info) => {
+  routeDepartureTime: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );

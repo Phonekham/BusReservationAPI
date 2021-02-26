@@ -18,7 +18,11 @@ type Query {
   route(id: ID!): Route!
   departureTime(id: ID!): DepartureTime!
   # Query For Member
-  checkDepartureTime(departureDate: Date, route: ID): [DepartureTime!]
+  checkDepartureTime(
+    departureDate: Date
+    route: ID
+    seatQty: Int!
+  ): [DepartureTime!]
 }
 
 type Mutation {
@@ -126,10 +130,8 @@ input TicketInput {
 }
 input BookingInput {
   departureTime: ID!
-  bookingItem: ID!
-  bookingDate: Date!
+  seat: [ID!]!
   departureDate: Date!
-  member: ID!
 }
 
 # update input types
@@ -195,11 +197,11 @@ input UpdateMemberInput {
 
 # Custom Types
 type AuthData {
-  employee: Employee
+  user: Employee
   jwt: String
 }
 type MemberAuthData {
-  member: Member
+  user: Member
   jwt: String
 }
 type User {
@@ -285,14 +287,13 @@ type Ticket {
 type BookingItem {
   id: ID!
   seat: Seat!
-  firstname: String!
-  lastname: String!
+  departureDate: Date!
+  departureTime: DepartureTime!
 }
 type Booking {
   id: ID!
-  departureTime: DepartureTime!
-  bookingItem: BookingItem!
-  bookingDate: Date!
-  departureDate: Date!
+  bookingItem: [BookingItem!]!
+  qty: Int!
+  createdAt: Date!
   member: Member!
 }

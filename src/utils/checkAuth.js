@@ -5,7 +5,7 @@ const checkAuth = (token) => {
     const parseToken = token.split(' ')[1];
     try {
       const decodedToken = jwt.verify(parseToken, process.env.SECRET);
-      return { employee: decodedToken.employee };
+      return { user: decodedToken.user, role: decodedToken.role };
     } catch (err) {
       return null;
     }

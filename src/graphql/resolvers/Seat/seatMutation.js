@@ -4,7 +4,7 @@ import Seat from '../../../models/Seat';
 import BusType from '../../../models/BusType';
 
 export default {
-  addSeat: async (parents, args, { employee }, info) => {
+  addSeat: async (parents, args, { user }, info) => {
     const { seatNo, busType } = args.input;
 
     const seats = await Seat.find({
@@ -14,7 +14,7 @@ export default {
       (await seats.findIndex((seat) => seat.seatNo === seatNo)) > -1;
 
     // Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -40,10 +40,10 @@ export default {
       .then((seat) => seat.populate({ path: 'busType' }).execPopulate());
     return seat;
   },
-  updateSeat: async (parents, args, { employee }, info) => {
+  updateSeat: async (parents, args, { user }, info) => {
     const { seatNo, busType } = args.input;
     // Check Auth
-    if (!employee)
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -76,8 +76,8 @@ export default {
       console.log(error);
     }
   },
-  deleteSeat: async (parents, args, { employee }, info) => {
-    if (!employee)
+  deleteSeat: async (parents, args, { user }, info) => {
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );

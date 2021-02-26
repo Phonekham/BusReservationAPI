@@ -2,12 +2,12 @@ import { UserInputError } from 'apollo-server-express';
 import Company from '../../../models/Company';
 
 export default {
-  addCompany: async (parents, args, { employee }, info) => {
+  addCompany: async (parents, args, { user }, info) => {
     const { name, address, tel, email } = args.input;
     const companies = await Company.find({});
 
     // Validations
-    if (!employee)
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
     const isCompanyExist =
       (await companies.findIndex((company) => company.name === name)) > -1;
@@ -21,8 +21,8 @@ export default {
     const company = await newCompany.save();
     return company;
   },
-  updateCompany: async (parents, args, { employee }, info) => {
-    if (!employee)
+  updateCompany: async (parents, args, { user }, info) => {
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
     try {
       const updateCompany = await Company.findByIdAndUpdate(
@@ -37,8 +37,8 @@ export default {
       throw new Error('Error', error);
     }
   },
-  deleteCompany: async (parents, args, { employee }, info) => {
-    if (!employee)
+  deleteCompany: async (parents, args, { user }, info) => {
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
     try {
       const deleteCompany = await Company.findByIdAndDelete(args.id);

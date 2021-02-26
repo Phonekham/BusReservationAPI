@@ -3,7 +3,7 @@ import { UserInputError, AuthenticationError } from 'apollo-server-express';
 import DepartureTime from '../../../models/DepartureTime';
 
 export default {
-  addDepartureTime: async (parents, args, { employee }, info) => {
+  addDepartureTime: async (parents, args, { user }, info) => {
     const { time, busType, fare, route } = args.input;
 
     const departureTimes = await DepartureTime.find({
@@ -14,7 +14,7 @@ export default {
       (await departureTimes.findIndex((dp) => dp.time === time)) > -1;
 
     // Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -63,9 +63,9 @@ export default {
       );
     return departureTime;
   },
-  updateDepartureTime: async (parents, args, { employee }, info) => {
+  updateDepartureTime: async (parents, args, { user }, info) => {
     // Check Auth
-    if (!employee)
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -86,8 +86,8 @@ export default {
       console.log(error);
     }
   },
-  deleteDepartureTime: async (parents, args, { employee }, info) => {
-    if (!employee)
+  deleteDepartureTime: async (parents, args, { user }, info) => {
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );

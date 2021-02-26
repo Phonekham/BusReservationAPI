@@ -112,10 +112,14 @@ export default {
     const validPassword = await bcrypt.compare(password, employee.password);
     if (!validPassword) throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
 
-    const token = jwt.sign({ user: employee }, process.env.SECRET, {
-      expiresIn: '1days',
-    });
-    return { employee, jwt: token };
+    const token = jwt.sign(
+      { user: employee, role: 'employee' },
+      process.env.SECRET,
+      {
+        expiresIn: '1days',
+      }
+    );
+    return { user: employee, jwt: token };
   },
   loginMember: async (parents, args, context, info) => {
     const { username, email, password } = args;
@@ -128,9 +132,13 @@ export default {
     const validPassword = await bcrypt.compare(password, member.password);
     if (!validPassword) throw new Error('ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ');
 
-    const token = jwt.sign({ user: member }, process.env.SECRET, {
-      expiresIn: '1days',
-    });
-    return { member, jwt: token };
+    const token = jwt.sign(
+      { user: member, role: 'member' },
+      process.env.SECRET,
+      {
+        expiresIn: '1days',
+      }
+    );
+    return { user: member, jwt: token };
   },
 };

@@ -3,12 +3,12 @@ import { UserInputError } from 'apollo-server-express';
 import Bus from '../../../models/Bus';
 
 export default {
-  addBus: async (parents, args, { employee }, info) => {
+  addBus: async (parents, args, { user }, info) => {
     const { licencePlate, company, busType } = args.input;
     const buses = await Bus.find({});
 
     // Validations
-    if (!employee) {
+    if (!user) {
       throw new Error('Access denied', {
         errors: {
           auth: 'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ',
@@ -56,8 +56,8 @@ export default {
       );
     return bus;
   },
-  updateBus: async (parents, args, { employee }, info) => {
-    if (!employee)
+  updateBus: async (parents, args, { user }, info) => {
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
     try {
       const updateBus = await Bus.findByIdAndUpdate(
@@ -74,8 +74,8 @@ export default {
       throw new Error('Error', error);
     }
   },
-  deleteBus: async (parents, args, { employee }, info) => {
-    if (!employee)
+  deleteBus: async (parents, args, { user }, info) => {
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
     try {
       const deleteBus = await Bus.findByIdAndDelete(args.id);

@@ -3,14 +3,14 @@ import { UserInputError, AuthenticationError } from 'apollo-server-express';
 import Route from '../../../models/Route';
 
 export default {
-  addRoute: async (parents, args, { employee }, info) => {
+  addRoute: async (parents, args, { user }, info) => {
     const { routeEngName, distance, destination } = args.input;
     const departure = 'ວຽງຈັນ';
     const name = departure.concat(' - ', destination);
     const routes = await Route.find({});
 
     // Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -49,9 +49,9 @@ export default {
     const route = await newRoute.save();
     return route;
   },
-  updateRoute: async (parents, args, { employee }, info) => {
+  updateRoute: async (parents, args, { user }, info) => {
     // Check Auth
-    if (!employee)
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );
@@ -69,8 +69,8 @@ export default {
       throw new Error('Error', error);
     }
   },
-  deleteRoute: async (parents, args, { employee }, info) => {
-    if (!employee)
+  deleteRoute: async (parents, args, { user }, info) => {
+    if (!user)
       throw new AuthenticationError(
         'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
       );

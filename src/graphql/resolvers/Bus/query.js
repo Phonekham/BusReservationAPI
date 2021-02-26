@@ -3,9 +3,9 @@ import { AuthenticationError } from 'apollo-server-express';
 import Bus from '../../../models/Bus';
 
 export default {
-  buses: async (parents, args, { employee }, info) => {
+  buses: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee) {
+    if (!user) {
       throw new AuthenticationError('Access denied', {
         errors: {
           auth: 'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ',
@@ -16,9 +16,9 @@ export default {
       .populate({ path: 'busType' })
       .populate({ path: 'company' });
   },
-  bus: async (parents, args, { employee }, info) => {
+  bus: async (parents, args, { user }, info) => {
     //   Check Auth
-    if (!employee)
+    if (!user)
       throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
 
     try {
