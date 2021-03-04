@@ -23,6 +23,7 @@ type Query {
     route: ID
     seatQty: Int!
   ): [DepartureTime!]
+  displaySeat(departureDate: Date, departureTime: ID): [Seat!]
 }
 
 type Mutation {
@@ -293,6 +294,7 @@ type BookingItem {
 type Booking {
   id: ID!
   bookingItem: [BookingItem!]!
+  fare: Int
   qty: Int!
   createdAt: Date!
   member: Member!

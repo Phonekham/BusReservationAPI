@@ -1,27 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 var bookingItemSchema = new Schema({
   seat: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'Seat',
+    ref: "Seat",
   },
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-  },
-  booking: {
+  departureTime: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'Booking',
+    ref: "DepartureTime",
+  },
+  departureDate: {
+    type: Date,
+    required: true,
   },
 });
 
-const BookingItem = mongoose.model('BookingItem', bookingItemSchema);
+const BookingItem = mongoose.model("BookingItem", bookingItemSchema);
 
 export default BookingItem;
