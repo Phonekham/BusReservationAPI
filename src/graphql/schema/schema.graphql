@@ -44,7 +44,7 @@ type Mutation {
   addDepartureTime(input: DepartureTimeInput!): DepartureTime!
   addSeat(input: SeatInput!): Seat!
   # Update
-  updateCompany(input: UpdateCompanyInput!): Company!
+  updateCompany(id: ID!, input: UpdateCompanyInput!): Company
   updateEmployee(input: UpdateEmployeeInput!): Employee!
   updateBusType(input: UpdateBusTypeInput!): BusType!
   updateBus(input: UpdateBusInput!): Bus!
@@ -137,7 +137,6 @@ input BookingInput {
 
 # update input types
 input UpdateCompanyInput {
-  id: ID!
   name: String
   email: String
   tel: String

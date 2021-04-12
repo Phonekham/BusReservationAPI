@@ -1,5 +1,5 @@
-import { UserInputError } from 'apollo-server-express';
-import Company from '../../../models/Company';
+import { UserInputError } from "apollo-server-express";
+import Company from "../../../models/Company";
 
 export default {
   addCompany: async (parents, args, { user }, info) => {
@@ -8,13 +8,13 @@ export default {
 
     // Validations
     if (!user)
-      throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
+      throw new Error("ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ");
     const isCompanyExist =
       (await companies.findIndex((company) => company.name === name)) > -1;
-    if (name.trim().toUpperCase() === '') {
-      throw new UserInputError('ກາລະນາປ້ອນຊື່ບໍລິສັດ');
+    if (name.trim().toUpperCase() === "") {
+      throw new UserInputError("ກາລະນາປ້ອນຊື່ບໍລິສັດ");
     } else if (isCompanyExist) {
-      throw new UserInputError('ຊື່ບໍລິສັດນີ້ມີແລ້ວ');
+      throw new UserInputError("ຊື່ບໍລິສັດນີ້ມີແລ້ວ");
     }
 
     const newCompany = new Company({ ...args.input });
@@ -23,10 +23,10 @@ export default {
   },
   updateCompany: async (parents, args, { user }, info) => {
     if (!user)
-      throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
+      throw new Error("ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ");
     try {
       const updateCompany = await Company.findByIdAndUpdate(
-        args.input.id,
+        args.id,
         {
           ...args.input,
         },
@@ -34,17 +34,17 @@ export default {
       );
       return updateCompany;
     } catch (error) {
-      throw new Error('Error', error);
+      throw new Error("Error", error);
     }
   },
   deleteCompany: async (parents, args, { user }, info) => {
     if (!user)
-      throw new Error('ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ');
+      throw new Error("ທ່ານບໍມີສິດໃຊ້ງານຟັງຊັນນີ້ ກະລຸນາເຂົ້າສູ່ລະບົບ");
     try {
       const deleteCompany = await Company.findByIdAndDelete(args.id);
       return deleteCompany;
     } catch (error) {
-      throw new Error('Error', error);
+      throw new Error("Error", error);
     }
   },
 };
