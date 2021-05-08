@@ -42,7 +42,7 @@ type Mutation {
   addBus(input: BusInput!): Bus!
   addRoute(input: RouteInput!): Route!
   addDepartureTime(input: DepartureTimeInput!): DepartureTime!
-  addSeat(input: SeatInput!): Seat!
+  addSeat(seatNo: String!, busType: ID!): Seat!
   # Update
   updateCompany(id: ID!, input: UpdateCompanyInput!): Company
   updateEmployee(input: UpdateEmployeeInput!): Employee!
