@@ -55,7 +55,7 @@ type Mutation {
   deleteCompany(id: ID!): Company!
   deleteEmployee(id: ID!): Employee!
   deleteBusType(id: ID!): BusType!
-  deleteBus(id: ID!): Bus!
+  deleteBus(id: ID!): Bus
   deleteRoute(id: ID!): Route!
   deleteDepartureTime(id: ID!): DepartureTime
   deleteSeat(id: ID!): Seat!
