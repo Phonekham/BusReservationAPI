@@ -183,7 +183,6 @@ input UpdateDepartureTimeInput {
   fare: Float
   isBookable: Boolean
   busType: ID
-  route: ID
 }
 input UpdateMemberInput {
   id: ID!
@@ -251,7 +250,7 @@ type DepartureTime {
   time: String!
   fare: Float!
   isBookable: Boolean!
-  busType: BusType!
+  busType: BusType
   route: Route!
 }
 type Employee {

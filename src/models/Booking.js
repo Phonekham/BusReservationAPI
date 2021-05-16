@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 var bookingSchema = new Schema(
@@ -7,7 +7,7 @@ var bookingSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'BookingItem',
+        ref: "BookingItem",
       },
     ],
     qty: {
@@ -17,12 +17,12 @@ var bookingSchema = new Schema(
     member: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Member',
+      ref: "Member",
     },
   },
   { timestamps: true }
 );
 
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model("Booking", bookingSchema);
 
 export default Booking;

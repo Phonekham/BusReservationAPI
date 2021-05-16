@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 var departureTimeSchema = new Schema({
@@ -9,7 +9,7 @@ var departureTimeSchema = new Schema({
   busType: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'BusType',
+    ref: "BusType",
   },
   fare: {
     type: Number,
@@ -18,7 +18,7 @@ var departureTimeSchema = new Schema({
   route: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'Route',
+    ref: "Route",
   },
   isBookable: {
     type: Boolean,
@@ -26,6 +26,6 @@ var departureTimeSchema = new Schema({
   },
 });
 
-const DepartureTime = mongoose.model('DepartureTime', departureTimeSchema);
+const DepartureTime = mongoose.model("DepartureTime", departureTimeSchema);
 
 export default DepartureTime;
