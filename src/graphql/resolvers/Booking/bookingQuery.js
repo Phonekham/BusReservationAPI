@@ -6,7 +6,8 @@ const checkDepartureTime = async (parents, args, context, info) => {
   const { route } = args;
   return await DepartureTime.find({ route })
     .populate({ path: "busType" })
-    .populate({ path: "route" });
+    .populate({ path: "route" })
+    .sort({ time: -1 });
 };
 
 const getBookedSeats = async (parents, args, context, info) => {
