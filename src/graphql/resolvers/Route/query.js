@@ -7,13 +7,6 @@ export default {
     return await Route.find({});
   },
   route: async (parents, args, { user }, info) => {
-    //   Check Auth
-    if (!user) {
-      throw new AuthenticationError(
-        "ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ"
-      );
-    }
-
     const route = await Route.findById(args.id);
     if (!route) {
       throw new UserInputError("Route ID Not Found", {
