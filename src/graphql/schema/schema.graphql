@@ -19,8 +19,8 @@ type Query {
   departureTime(id: ID!): DepartureTime!
   # Query For Member
   checkDepartureTime(
-    departureDate: Date
-    route: ID
+    departureDate: Date!
+    route: ID!
     seatQty: Int!
   ): [DepartureTime!]
   getBookedSeats(departureDate: Date, departureTime: ID): [Seat!]
@@ -88,6 +88,7 @@ input BusTypeInput {
   type: String!
   description: String
   capacity: Int
+  floorType: Int
 }
 input BusInput {
   licencePlate: String!
@@ -97,6 +98,7 @@ input BusInput {
 input SeatInput {
   seatNo: String!
   busType: ID!
+  floor: Int
 }
 input RouteInput {
   routeEngName: String!
@@ -218,6 +220,7 @@ type BusType {
   type: String!
   description: String
   capacity: Int
+  floorType: Int
 }
 type Company {
   id: ID!
@@ -236,6 +239,7 @@ type Seat {
   id: ID!
   seatNo: String!
   busType: BusType!
+  floor: Int
 }
 type Route {
   id: ID!

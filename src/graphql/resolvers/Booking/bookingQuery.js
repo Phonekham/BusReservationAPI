@@ -1,9 +1,19 @@
+import { UserInputError } from "apollo-server-express";
+
 import DepartureTime from "../../../models/DepartureTime";
 import Seat from "../../../models/Seat";
 import BookingItem from "../../../models/BookingItem";
 
 const checkDepartureTime = async (parents, args, context, info) => {
-  const { route } = args;
+  const { route, seatQty, departureDate } = args;
+  if (!route) {
+    throw new UserInputError("ກາລະນາເລືອກປາຍທາງ");
+  } else if (!seatQty) {
+    throw new UserInputError("ກາລະນາເລືອກຈຳນວນຜູ້ໂດຍສານ");
+  } else if (!departureDate) {
+    throw new UserInputError("ກາລະນາເລືອກວັນທີ່ເດີນທາງ");
+  }
+
   return await DepartureTime.find({ route })
     .populate({ path: "busType" })
     .populate({ path: "route" })
