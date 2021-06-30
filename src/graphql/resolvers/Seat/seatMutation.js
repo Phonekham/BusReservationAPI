@@ -5,7 +5,7 @@ import Seat from "../../../models/Seat";
 export default {
   addSeat: async (parents, args, { user }, info) => {
     const { seatNo, busType } = args;
-    console.log(args);
+
     const seats = await Seat.find({
       busType: { $eq: busType },
     });
