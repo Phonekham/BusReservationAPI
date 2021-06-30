@@ -9,6 +9,7 @@ type Query {
   departureTimes: [DepartureTime!]
   routeDepartureTime(route: ID!): [DepartureTime!]
   seats(busType: ID!): [Seat!]
+  seats2(busType: ID!): [Seat!]
   seat(id: ID!): Seat!
   bookings: [Booking!]
   company(id: ID!): Company!
@@ -42,7 +43,7 @@ type Mutation {
   addBus(input: BusInput!): Bus!
   addRoute(input: RouteInput!): Route!
   addDepartureTime(input: DepartureTimeInput!): DepartureTime!
-  addSeat(seatNo: String!, busType: ID!): Seat!
+  addSeat(seatNo: String!, busType: ID!, floor: Int!): Seat!
   # Update
   updateCompany(id: ID!, input: UpdateCompanyInput!): Company
   updateEmployee(input: UpdateEmployeeInput!): Employee!

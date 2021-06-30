@@ -5,7 +5,17 @@ import Seat from "../../../models/Seat";
 export default {
   seats: async (parents, args, { user }, info) => {
     const { busType } = args;
-    return await Seat.find({ busType: { $eq: busType } }).populate({
+    return await Seat.find({
+      $and: [{ busType: { $eq: busType } }, { floor: { $eq: 1 } }],
+    }).populate({
+      path: "busType",
+    });
+  },
+  seats2: async (parents, args, { user }, info) => {
+    const { busType } = args;
+    return await Seat.find({
+      $and: [{ busType: { $eq: busType } }, { floor: { $eq: 2 } }],
+    }).populate({
       path: "busType",
     });
   },

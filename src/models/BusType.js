@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 var busTypeSchema = new Schema({
@@ -12,8 +12,11 @@ var busTypeSchema = new Schema({
   capacity: {
     type: Number,
   },
+  floorType: {
+    type: Number,
+  },
 });
 
-const BusType = mongoose.model('BusType', busTypeSchema);
+const BusType = mongoose.model("BusType", busTypeSchema);
 
 export default BusType;

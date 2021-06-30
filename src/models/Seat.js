@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 var seatSchema = new Schema({
@@ -9,10 +9,14 @@ var seatSchema = new Schema({
   busType: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'BusType',
+    ref: "BusType",
+  },
+  floor: {
+    type: Number,
+    required: true,
   },
 });
 
-const Seat = mongoose.model('Seat', seatSchema);
+const Seat = mongoose.model("Seat", seatSchema);
 
 export default Seat;
