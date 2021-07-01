@@ -160,6 +160,7 @@ input UpdateBusTypeInput {
   type: String
   description: String
   capacity: Int
+  floorType: Int
 }
 input UpdateBusInput {
   id: ID!

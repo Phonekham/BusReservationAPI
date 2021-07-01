@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 dotenv.config();
-import server from './server';
+import server from "./server";
 const { PORT, DB_URI } = process.env;
 
 const createServer = async () => {
@@ -16,7 +16,7 @@ const createServer = async () => {
       useUnifiedTopology: true,
       useFindAndModify: true,
     });
-    console.log('DB Connected');
+    console.log("DB Connected");
   } catch (error) {
     console.log(error);
   }
