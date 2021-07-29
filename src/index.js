@@ -26,9 +26,23 @@ const createServer = async () => {
   app.use(cors());
   app.use(bodyParser.json());
 
-  // Rest Endpoint Here
-
   server.applyMiddleware({ app });
+
+  // REST Endpoint
+  // cloudinary config
+  cloudinary.config({
+    cloud_name: "dmxp0i0sh",
+    api_key: "674244665279913",
+    api_secret: "qyB-LXVOLK0xbl2u2DIEN3ni4Bs",
+  });
+  // remove image
+  app.post("/removeImage", (req, res) => {
+    let image_id = req.body.public_id;
+    cloudinary.uploader.destroy(image_id, (error, result) => {
+      if (error) return res.json({ success: false, error });
+      res.send("ok");
+    });
+  });
 
   app.listen({ port: PORT }, () =>
     console.log(
