@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
+import cloudinary from "cloudinary";
 
 dotenv.config();
 import server from "./server";

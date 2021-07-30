@@ -136,6 +136,15 @@ input BookingInput {
   departureTime: ID!
   seat: [ID!]!
   departureDate: Date!
+  route: ID!
+  fullname: String
+  email: String
+  tel: String
+  totalAmount: Int!
+  payNow: Boolean!
+  paymentImage: String
+  paymentStatus: String
+  paymentDate: String
 }
 
 # update input types
@@ -294,6 +303,7 @@ type BookingItem {
   seat: Seat!
   departureDate: Date!
   departureTime: DepartureTime!
+  route: Route!
 }
 type Booking {
   id: ID!
@@ -302,4 +312,11 @@ type Booking {
   qty: Int!
   createdAt: Date!
   member: Member!
+}
+type Payment {
+  id: ID!
+  paymentDate: Date
+  paymenntImage: String!
+  paymentStatus: String!
+  bookingId: Booking!
 }

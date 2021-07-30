@@ -1,30 +1,37 @@
-import { UserInputError } from 'apollo-server-express';
+import { UserInputError } from "apollo-server-express";
 
-import Booking from '../../../models/Booking';
-import BookingItem from '../../../models/BookingItem';
-import DepartureTime from '../../../models/DepartureTime';
+import Booking from "../../../models/Booking";
+import BookingItem from "../../../models/BookingItem";
+import DepartureTime from "../../../models/DepartureTime";
+import Payment from "../../../models/Payment";
 
 const bookTicket = async (parents, args, { user }, info) => {
-  const { departureTime, departureDate, seat } = args.input;
+  const { departureTime, departureDate, seat, fare, payNow } = args.input;
   const member = user.user;
 
   // validate If empty
-  if (departureTime === '') {
-    throw new UserInputError('Require DepartureTime', {
+  if (departureTime === "") {
+    throw new UserInputError("Require DepartureTime", {
       errors: {
-        DepartureTime: 'ກະລຸນາເລືອກ ສາຍທາງ',
+        DepartureTime: "ກະລຸນາເລືອກ ສາຍທາງ",
       },
     });
-  } else if (departureDate === '') {
-    throw new UserInputError('Require departureDate', {
+  } else if (departureDate === "") {
+    throw new UserInputError("Require departureDate", {
       errors: {
-        departureDate: 'ກະລຸນາເລືອກວັນເດີນທາງ',
+        departureDate: "ກະລຸນາເລືອກວັນເດີນທາງ",
       },
     });
   } else if (seat.length === 0) {
-    throw new UserInputError('Require seat', {
+    throw new UserInputError("Require seat", {
       errors: {
-        seat: 'ກະລຸນາເລືອກບ່ອນນັ່ງ',
+        seat: "ກະລຸນາເລືອກບ່ອນນັ່ງ",
+      },
+    });
+  } else if (fare === 0) {
+    throw new UserInputError("Require fare", {
+      errors: {
+        seat: "ກະລຸນາປ້ອນຄ່າເດີນທາງ",
       },
     });
   }
@@ -33,6 +40,7 @@ const bookTicket = async (parents, args, { user }, info) => {
   let newBookingItem;
   let bookingItem;
 
+  // Save Booking Item
   if (seat.length <= 1) {
     newBookingItem = new BookingItem({
       ...args.input,
@@ -53,22 +61,27 @@ const bookTicket = async (parents, args, { user }, info) => {
   }
 
   const newBooking = new Booking({
+    ...args.input,
     bookingItem,
     member,
     qty: seat.length,
     fare: depaertureTimeFare.fare,
   });
-  const booking = await newBooking.save().then((b) =>
-    b
+  const booking = await newBooking.save().then((b) => {
+    // Payment
+    if (payNow) {
+      Payment.create({ ...args.input, bookingId: b.id });
+    }
+    return b
       .populate({
-        path: 'bookingItem',
+        path: "bookingItem",
         populate: [
-          [{ path: 'seat' }],
-          { path: 'departureTime', populate: { path: 'route' } },
+          [{ path: "seat" }],
+          { path: "departureTime", populate: { path: "route" } },
         ],
       })
-      .execPopulate()
-  );
+      .execPopulate();
+  });
   return booking;
 };
 

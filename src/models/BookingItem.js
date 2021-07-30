@@ -12,6 +12,11 @@ var bookingItemSchema = new Schema({
     required: true,
     ref: "DepartureTime",
   },
+  route: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Route",
+  },
   departureDate: {
     type: Date,
     required: true,
