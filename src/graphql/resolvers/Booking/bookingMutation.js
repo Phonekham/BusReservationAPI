@@ -7,7 +7,7 @@ import Payment from "../../../models/Payment";
 
 const bookTicket = async (parents, args, { user }, info) => {
   const { departureTime, departureDate, seat, fare, payNow } = args.input;
-  const member = user.user;
+  const member = "603600b1e6a3213c703ea4f6";
 
   // validate If empty
   if (departureTime === "") {
@@ -65,7 +65,6 @@ const bookTicket = async (parents, args, { user }, info) => {
     bookingItem,
     member,
     qty: seat.length,
-    fare: depaertureTimeFare.fare,
   });
   const booking = await newBooking.save().then((b) => {
     // Payment

@@ -18,6 +18,7 @@ type Query {
   bus(id: ID!): Bus!
   route(id: ID!): Route!
   departureTime(id: ID!): DepartureTime!
+  user(id: ID!): Member!
   # Query For Member
   checkDepartureTime(
     departureDate: Date!
@@ -137,6 +138,7 @@ input BookingInput {
   seat: [ID!]!
   departureDate: Date!
   route: ID!
+  fare:Int!
   fullname: String
   email: String
   tel: String
