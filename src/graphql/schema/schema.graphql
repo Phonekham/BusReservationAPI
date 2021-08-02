@@ -11,7 +11,7 @@ type Query {
   seats(busType: ID!): [Seat!]
   seats2(busType: ID!): [Seat!]
   seat(id: ID!): Seat!
-  bookings: [Booking!]
+  bookings(status: String): [Booking!]
   company(id: ID!): Company!
   employee(id: ID!): Employee!
   busType(id: ID!): BusType!

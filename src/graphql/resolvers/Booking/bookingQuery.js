@@ -3,6 +3,7 @@ import { UserInputError } from "apollo-server-express";
 import DepartureTime from "../../../models/DepartureTime";
 import Seat from "../../../models/Seat";
 import BookingItem from "../../../models/BookingItem";
+import Booking from "../../../models/Booking";
 
 const checkDepartureTime = async (parents, args, context, info) => {
   const { route, departureDate } = args;
@@ -29,4 +30,25 @@ const getBookedSeats = async (parents, args, context, info) => {
   return seats;
 };
 
-export default { checkDepartureTime, getBookedSeats };
+const bookings = async (parents, args, context, info) => {
+  const { status } = args;
+  if (status) {
+    const bookings = await Booking.find({ status })
+      .populate({
+        path: "bookingItem",
+        populate: { path: "route departureTime seat" },
+      })
+      .populate({ path: "member" });
+    return bookings;
+  } else {
+    const bookings = await Booking.find({})
+      .populate({
+        path: "bookingItem",
+        populate: { path: "route departureTime seat" },
+      })
+      .populate({ path: "member" });
+    return bookings;
+  }
+};
+
+export default { checkDepartureTime, getBookedSeats, bookings };
