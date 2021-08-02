@@ -5,11 +5,9 @@ import Seat from "../../../models/Seat";
 import BookingItem from "../../../models/BookingItem";
 
 const checkDepartureTime = async (parents, args, context, info) => {
-  const { route, seatQty, departureDate } = args;
+  const { route, departureDate } = args;
   if (!route) {
     throw new UserInputError("ກາລະນາເລືອກປາຍທາງ");
-  } else if (!seatQty) {
-    throw new UserInputError("ກາລະນາເລືອກຈຳນວນຜູ້ໂດຍສານ");
   } else if (!departureDate) {
     throw new UserInputError("ກາລະນາເລືອກວັນທີ່ເດີນທາງ");
   }
