@@ -79,6 +79,8 @@ const bookTicket = async (parents, args, { user }, info) => {
           { path: "departureTime", populate: { path: "route" } },
         ],
       })
+      .populate({ path: "route" })
+      .populate({ path: "departureTime" })
       .execPopulate();
   });
   return booking;

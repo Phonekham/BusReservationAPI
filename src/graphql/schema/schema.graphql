@@ -310,6 +310,13 @@ type Booking {
   qty: Int!
   createdAt: Date!
   member: Member!
+  departureDate: Date!
+  departureTime: DepartureTime!
+  route: Route!
+  fullname: String
+  email: String
+  tel: String
+  status: String
 }
 type Payment {
   id: ID!

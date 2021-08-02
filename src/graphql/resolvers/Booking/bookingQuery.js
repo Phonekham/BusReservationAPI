@@ -38,7 +38,9 @@ const bookings = async (parents, args, context, info) => {
         path: "bookingItem",
         populate: { path: "route departureTime seat" },
       })
-      .populate({ path: "member" });
+      .populate({ path: "member" })
+      .populate({ path: "route" })
+      .populate({ path: "departureTime" });
     return bookings;
   } else {
     const bookings = await Booking.find({})
@@ -46,7 +48,9 @@ const bookings = async (parents, args, context, info) => {
         path: "bookingItem",
         populate: { path: "route departureTime seat" },
       })
-      .populate({ path: "member" });
+      .populate({ path: "member" })
+      .populate({ path: "route" })
+      .populate({ path: "departureTime" });
     return bookings;
   }
 };

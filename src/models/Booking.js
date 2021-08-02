@@ -18,6 +18,20 @@ var bookingSchema = new Schema(
     member: { type: Schema.Types.ObjectId, required: true, ref: "Member" },
     status: { type: String, default: "pending" },
     totalAmount: { type: Number, required: true },
+    departureTime: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "DepartureTime",
+    },
+    route: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Route",
+    },
+    departureDate: {
+      type: Date,
+      required: true,
+    },
   },
   { timestamps: true }
 );
