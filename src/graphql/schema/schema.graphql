@@ -22,6 +22,7 @@ type Query {
   # Query For Member
   checkDepartureTime(departureDate: Date!, route: ID!): [DepartureTime!]
   getBookedSeats(departureDate: Date, departureTime: ID): [Seat!]
+  queryPayment(bookingId: ID): Payment
 }
 
 type Mutation {
@@ -143,6 +144,7 @@ input BookingInput {
   paymentImage: String
   paymentStatus: String
   paymentDate: String
+  member: ID!
 }
 
 # update input types
@@ -306,6 +308,7 @@ type BookingItem {
 type Booking {
   id: ID!
   bookingItem: [BookingItem!]!
+  bookingNo: Int!
   fare: Int
   qty: Int!
   createdAt: Date!

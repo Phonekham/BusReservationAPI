@@ -7,7 +7,6 @@ import Payment from "../../../models/Payment";
 
 const bookTicket = async (parents, args, { user }, info) => {
   const { departureTime, departureDate, seat, fare, payNow } = args.input;
-  const member = "603600b1e6a3213c703ea4f6";
 
   // validate If empty
   if (departureTime === "") {
@@ -36,7 +35,14 @@ const bookTicket = async (parents, args, { user }, info) => {
     });
   }
 
-  const depaertureTimeFare = await DepartureTime.findById(departureTime);
+  const lastBooking = await Booking.findOne().sort({ bookingNo: -1 }).limit(1);
+  console.log(lastBooking);
+  let lastBookingNo;
+  lastBooking
+    ? (lastBookingNo = lastBooking.bookingNo)
+    : (lastBookingNo = 1000);
+  let bookingNo = lastBookingNo + 1;
+
   let newBookingItem;
   let bookingItem;
 
@@ -63,7 +69,7 @@ const bookTicket = async (parents, args, { user }, info) => {
   const newBooking = new Booking({
     ...args.input,
     bookingItem,
-    member,
+    bookingNo,
     qty: seat.length,
   });
   const booking = await newBooking.save().then((b) => {

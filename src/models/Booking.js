@@ -10,6 +10,7 @@ var bookingSchema = new Schema(
         ref: "BookingItem",
       },
     ],
+    bookingNo: { type: Number, unique: true },
     qty: { type: Number, required: true },
     fare: { type: Number, required: true },
     fullname: { type: String, required: true },
