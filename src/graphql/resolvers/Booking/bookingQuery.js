@@ -55,4 +55,16 @@ const bookings = async (parents, args, context, info) => {
   }
 };
 
-export default { checkDepartureTime, getBookedSeats, bookings };
+const bookingDetail = async (parents, args, context, info) => {
+  const booking = await Booking.findById(args.id)
+    .populate({
+      path: "bookingItem",
+      populate: { path: "route departureTime seat" },
+    })
+    .populate({ path: "member" })
+    .populate({ path: "route" })
+    .populate({ path: "departureTime" });
+  return booking;
+};
+
+export default { checkDepartureTime, getBookedSeats, bookings, bookingDetail };

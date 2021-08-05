@@ -17,7 +17,7 @@ var bookingSchema = new Schema(
     tel: { type: String, required: true },
     email: { type: String, required: true },
     member: { type: Schema.Types.ObjectId, required: true, ref: "Member" },
-    status: { type: String, default: "pending" },
+    status: { type: String, required: true },
     totalAmount: { type: Number, required: true },
     departureTime: {
       type: Schema.Types.ObjectId,

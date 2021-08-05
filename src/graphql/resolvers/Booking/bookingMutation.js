@@ -6,8 +6,14 @@ import DepartureTime from "../../../models/DepartureTime";
 import Payment from "../../../models/Payment";
 
 const bookTicket = async (parents, args, { user }, info) => {
-  const { departureTime, departureDate, seat, fare, payNow } = args.input;
+  const { departureTime, departureDate, seat, fare, payNow, paymentImage } =
+    args.input;
 
+  if (payNow && paymentImage === "") {
+    throw new UserInputError(
+      "ຖ້າຫາກທ່ານຈະຈ່າຍຕອນນີ້ ກາລຸນາອັບໂລດສະລິບການຈ່າຍເງິນ"
+    );
+  }
   // validate If empty
   if (departureTime === "") {
     throw new UserInputError("Require DepartureTime", {
