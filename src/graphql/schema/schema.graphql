@@ -24,6 +24,7 @@ type Query {
   getBookedSeats(departureDate: Date, departureTime: ID): [Seat!]
   queryPayment(bookingId: ID): Payment
   bookingDetail(id: ID!): Booking!
+  userBookings(id: ID!): [Booking]!
 }
 
 type Mutation {
@@ -322,6 +323,7 @@ type Booking {
   email: String
   tel: String
   status: String
+  totalAmount: Int!
 }
 type Payment {
   id: ID!
