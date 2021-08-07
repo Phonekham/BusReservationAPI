@@ -63,6 +63,7 @@ type Mutation {
   # Services
   bookTicket(input: BookingInput!): Booking!
   saleTicket(input: TicketInput!): Ticket!
+  verifyPayment(paymentId: ID!): Payment
 }
 
 # scalar Types

@@ -42,13 +42,11 @@ const bookTicket = async (parents, args, { user }, info) => {
   }
 
   const lastBooking = await Booking.findOne().sort({ bookingNo: -1 }).limit(1);
-  console.log(lastBooking);
   let lastBookingNo;
   lastBooking
     ? (lastBookingNo = lastBooking.bookingNo)
     : (lastBookingNo = 1000);
   let bookingNo = lastBookingNo + 1;
-
   let newBookingItem;
   let bookingItem;
 
@@ -98,4 +96,28 @@ const bookTicket = async (parents, args, { user }, info) => {
   return booking;
 };
 
-export default { bookTicket };
+const verifyPayment = async (parents, args, { user }, info) => {
+  const { paymentId } = args;
+
+  const updatePayment = await Payment.findByIdAndUpdate(
+    { _id: paymentId },
+    {
+      $set: { paymentStatus: "paid" },
+    },
+    { new: true }
+  );
+
+  if (updatePayment) {
+    await Booking.findByIdAndUpdate(
+      { _id: updatePayment.bookingId },
+      {
+        $set: { status: "paid" },
+      },
+      { new: true }
+    );
+  }
+
+  return updatePayment;
+};
+
+export default { bookTicket, verifyPayment };
