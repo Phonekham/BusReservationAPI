@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r esm src/index.js",
-    "dev": "nodemon -r esm src/index.js"
+    "dashboard":"cd ../BusReservationDashboard && npm start",
+    "api": "nodemon -r esm src/index.js",
+    "dev": "concurrently \"npm run api\" \"npm run dashboard\""
   },
   "keywords": [],
   "author": "",
@@ -21,5 +23,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }
