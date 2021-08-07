@@ -4,6 +4,7 @@ import DepartureTime from "../../../models/DepartureTime";
 import Seat from "../../../models/Seat";
 import BookingItem from "../../../models/BookingItem";
 import Booking from "../../../models/Booking";
+import Payment from "../../../models/Payment";
 
 const checkDepartureTime = async (parents, args, context, info) => {
   const { route, departureDate } = args;
@@ -79,10 +80,17 @@ const bookingDetail = async (parents, args, context, info) => {
   return booking;
 };
 
+const queryPayment = async (parents, args, context, info) => {
+  const { bookingId } = args;
+  const payment = await Payment.findOne({ bookingId });
+  return payment;
+};
+
 export default {
   checkDepartureTime,
   getBookedSeats,
   bookings,
   bookingDetail,
   userBookings,
+  queryPayment,
 };

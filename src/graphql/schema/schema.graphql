@@ -328,7 +328,7 @@ type Booking {
 type Payment {
   id: ID!
   paymentDate: Date
-  paymenntImage: String!
+  paymentImage: String!
   paymentStatus: String!
   bookingId: Booking!
 }
