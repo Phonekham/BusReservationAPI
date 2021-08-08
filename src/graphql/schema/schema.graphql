@@ -2,6 +2,7 @@
 type Query {
   # Query For Employees
   employees: [Employee!]
+  admin(id: ID!): Employee!
   companies: [Company!]
   busTypes: [BusType!]
   buses: [Bus!]
