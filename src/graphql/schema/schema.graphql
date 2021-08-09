@@ -65,6 +65,7 @@ type Mutation {
   bookTicket(input: BookingInput!): Booking!
   saleTicket(input: TicketInput!): Ticket!
   verifyPayment(paymentId: ID!): Payment
+  payBooking(bookingId: ID!, input: PayBookingInput!): Booking!
 }
 
 # scalar Types
@@ -150,6 +151,12 @@ input BookingInput {
   paymentDate: String
   member: ID!
   status: String!
+}
+
+input PayBookingInput {
+  paymentImage: String!
+  paymentStatus: String!
+  paymentDate: String!
 }
 
 # update input types

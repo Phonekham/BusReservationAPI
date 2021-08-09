@@ -120,4 +120,31 @@ const verifyPayment = async (parents, args, { user }, info) => {
   return updatePayment;
 };
 
-export default { bookTicket, verifyPayment };
+const payBooking = async (parents, args, { user }, info) => {
+  const { bookingId } = args;
+  const { paymentImage, paymentStatus, paymentDate } = args.input;
+
+  if (paymentImage === "") {
+    throw new UserInputError(" ກາລຸນາອັບໂລດສະລິບການຈ່າຍເງິນ");
+  } else if (paymentStatus === "") {
+    throw new UserInputError("Require Payment status");
+  } else if (paymentDate === "") {
+    throw new UserInputError("Require Payment Date");
+  }
+
+  const updateBooking = await Booking.findByIdAndUpdate(
+    { _id: bookingId },
+    {
+      $set: { status: "pending" },
+    },
+    { new: true }
+  );
+
+  if (updateBooking) {
+    await Payment.create({ ...args.input, bookingId: updateBooking.id });
+  }
+
+  return updateBooking;
+};
+
+export default { bookTicket, verifyPayment, payBooking };
