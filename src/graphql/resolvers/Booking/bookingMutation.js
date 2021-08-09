@@ -138,6 +138,18 @@ const payBooking = async (parents, args, { user }, info) => {
       $set: { status: "pending" },
     },
     { new: true }
+  ).then((b) =>
+    b
+      .populate({
+        path: "bookingItem",
+        populate: [
+          [{ path: "seat" }],
+          { path: "departureTime", populate: { path: "route" } },
+        ],
+      })
+      .populate({ path: "route" })
+      .populate({ path: "departureTime" })
+      .execPopulate()
   );
 
   if (updateBooking) {
