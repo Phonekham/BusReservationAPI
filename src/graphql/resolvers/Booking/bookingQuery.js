@@ -22,13 +22,29 @@ const checkDepartureTime = async (parents, args, context, info) => {
 
 const getBookedSeats = async (parents, args, context, info) => {
   const { departureDate, departureTime } = args;
-  const bookedSeats = await BookingItem.find({
-    departureDate: { $eq: departureDate },
-    departureTime: { $eq: departureTime },
+
+  const date = await BookingItem.aggregate([
+    {
+      $project: {
+        yearMonthDay: {
+          $dateToString: { format: "%Y-%m-%d", date: "$departureDate" },
+        },
+      },
+    },
+    {
+      $match: { yearMonthDay: { $eq: departureDate } },
+    },
+  ]);
+  const ids = date.map((s) => s._id);
+  const bookingItem = await BookingItem.find({
+    _id: { $in: ids },
   });
-  const seatArr = bookedSeats.map((b) => b.seat);
-  const seats = await Seat.find({ _id: { $in: seatArr } });
-  return seats;
+
+  const seats = bookingItem.map((s) => s.seat);
+  const bookedSeats = await Seat.find({
+    _id: { $in: seats },
+  });
+  return bookedSeats;
 };
 
 const bookings = async (parents, args, context, info) => {
