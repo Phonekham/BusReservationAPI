@@ -32,12 +32,16 @@ const getBookedSeats = async (parents, args, context, info) => {
       },
     },
     {
-      $match: { yearMonthDay: { $eq: departureDate } },
+      $match: {
+        yearMonthDay: { $eq: departureDate },
+      },
     },
   ]);
+
   const ids = date.map((s) => s._id);
   const bookingItem = await BookingItem.find({
     _id: { $in: ids },
+    departureTime,
   });
 
   const seats = bookingItem.map((s) => s.seat);
