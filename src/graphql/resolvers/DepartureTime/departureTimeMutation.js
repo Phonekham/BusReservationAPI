@@ -1,53 +1,51 @@
-import { UserInputError, AuthenticationError } from 'apollo-server-express';
+import { UserInputError, AuthenticationError } from "apollo-server-express";
 
-import DepartureTime from '../../../models/DepartureTime';
+import DepartureTime from "../../../models/DepartureTime";
 
 export default {
   addDepartureTime: async (parents, args, { user }, info) => {
     const { time, busType, fare, route } = args.input;
 
-    const departureTimes = await DepartureTime.find({
-      busType: { $eq: busType },
+    const isDepartureTimeExist = await DepartureTime.findOne({
+      route,
+      time,
     });
-
-    const isDepartureTimeExist =
-      (await departureTimes.findIndex((dp) => dp.time === time)) > -1;
 
     // Check Auth
     if (!user) {
       throw new AuthenticationError(
-        'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
+        "ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ"
       );
     }
 
-    if (time === '') {
-      throw new UserInputError('Time is required ', {
+    if (time === "") {
+      throw new UserInputError("Time is required ", {
         errors: {
-          routeName: 'ກາລຸນາປ້ອນເວລາລົດອອກ',
+          routeName: "ກາລຸນາປ້ອນເວລາລົດອອກ",
         },
       });
     } else if (isDepartureTimeExist) {
-      throw new UserInputError('Time Exist', {
+      throw new UserInputError("ເວລາທີ່ທ່ານປ້ອນຊ້ຳກັນ ກາລຸນາກວດຄືນ", {
         errors: {
-          time: 'ເວລາທີ່ທ່ານປ້ອນຊ້ຳກັນ ກາລຸນາກວດຄືນ',
+          time: "ເວລາຖ້ຽວທີ່ທ່ານປ້ອນຊ້ຳກັນ ກາລຸນາກວດຄືນ",
         },
       });
     } else if (!fare) {
-      throw new UserInputError('Fare is required', {
+      throw new UserInputError("Fare is required", {
         errors: {
-          fare: 'ກາລຸນາປ້ອນຄ່າເດີນທາງ',
+          fare: "ກາລຸນາປ້ອນຄ່າເດີນທາງ",
         },
       });
-    } else if (busType === '') {
-      throw new Error('BusType is required', {
+    } else if (busType === "") {
+      throw new Error("BusType is required", {
         errors: {
-          bustype: 'ກາລຸນາເລືອກປະເພດລົດ',
+          bustype: "ກາລຸນາເລືອກປະເພດລົດ",
         },
       });
-    } else if (route === '') {
-      throw new Error('Route is required', {
+    } else if (route === "") {
+      throw new Error("Route is required", {
         errors: {
-          bustype: 'ກາລຸນາເລືອກສາຍທາງ',
+          bustype: "ກາລຸນາເລືອກສາຍທາງ",
         },
       });
     }
@@ -57,8 +55,8 @@ export default {
       .save()
       .then((departureTime) =>
         departureTime
-          .populate({ path: 'busType' })
-          .populate({ path: 'route' })
+          .populate({ path: "busType" })
+          .populate({ path: "route" })
           .execPopulate()
       );
     return departureTime;
@@ -67,7 +65,7 @@ export default {
     // Check Auth
     if (!user)
       throw new AuthenticationError(
-        'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
+        "ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ"
       );
 
     try {
@@ -78,18 +76,17 @@ export default {
         },
         { new: true }
       )
-        .populate({ path: 'busType' })
-        .populate({ path: 'route' });
+        .populate({ path: "busType" })
+        .populate({ path: "route" });
       return updateDepartureTime;
     } catch (error) {
-      // throw new Error('Error', error.message);
       console.log(error);
     }
   },
   deleteDepartureTime: async (parents, args, { user }, info) => {
     if (!user)
       throw new AuthenticationError(
-        'ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ'
+        "ທ່ານບໍມີສິດ ກາລຸນາເຂົ້າສູ່ລະບົບຜູ້ດູແລລະບົບ"
       );
 
     try {
@@ -98,7 +95,7 @@ export default {
       );
       return deleteDepartureTime;
     } catch (error) {
-      throw new Error('Error', error);
+      throw new Error("Error", error);
     }
   },
 };
