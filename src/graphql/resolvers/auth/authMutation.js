@@ -142,4 +142,27 @@ export default {
     );
     return { user: member, jwt: token };
   },
+  updateEmployee: async (parents, args, context, info) => {
+    try {
+      const updateEmployee = await Employee.findByIdAndUpdate(
+        args.input.id,
+        {
+          ...args.input,
+        },
+        { new: true }
+      );
+
+      return updateEmployee;
+    } catch (error) {
+      throw new Error("Error", error);
+    }
+  },
+  deleteEmployee: async (parents, args, context, info) => {
+    try {
+      const deleteEmployee = await Employee.findByIdAndDelete(args.id);
+      return deleteEmployee;
+    } catch (error) {
+      throw new Error("Error", error);
+    }
+  },
 };
