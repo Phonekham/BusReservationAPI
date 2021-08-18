@@ -26,6 +26,7 @@ type Query {
   queryPayment(bookingId: ID): Payment
   bookingDetail(id: ID!): Booking!
   userBookings(id: ID!): [Booking]!
+  paidBookings: [Booking]!
 }
 
 type Mutation {
@@ -55,7 +56,7 @@ type Mutation {
   updateSeat(input: UpdateSeatInput!): Seat!
   # Delete
   deleteCompany(id: ID!): Company!
-  deleteEmployee(id: ID!): Employee!
+  deleteEmployee(id: ID!): Employee
   deleteBusType(id: ID!): BusType!
   deleteBus(id: ID!): Bus
   deleteRoute(id: ID!): Route!
@@ -66,6 +67,7 @@ type Mutation {
   saleTicket(input: TicketInput!): Ticket!
   verifyPayment(paymentId: ID!): Payment
   payBooking(bookingId: ID!, input: PayBookingInput!): Booking!
+  issueTicket(bookingId: ID!): Ticket
 }
 
 # scalar Types
@@ -169,7 +171,6 @@ input UpdateCompanyInput {
 input UpdateEmployeeInput {
   id: ID!
   username: String
-  password: String
   email: String
   address: String
   phone: String
@@ -302,13 +303,9 @@ type Member {
 type Ticket {
   id: ID!
   ticketNo: Int!
-  firstname: String!
-  lastname: String!
-  departureTime: DepartureTime!
-  bus: Bus!
-  seat: Seat!
-  price: Float!
+  booking: Booking!
   employee: Employee!
+  createdAt: Date!
 }
 type BookingItem {
   id: ID!

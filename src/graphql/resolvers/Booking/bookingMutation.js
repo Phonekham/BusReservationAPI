@@ -2,7 +2,7 @@ import { UserInputError } from "apollo-server-express";
 
 import Booking from "../../../models/Booking";
 import BookingItem from "../../../models/BookingItem";
-import DepartureTime from "../../../models/DepartureTime";
+import Ticket from "../../../models/Ticket";
 import Payment from "../../../models/Payment";
 
 const bookTicket = async (parents, args, { user }, info) => {
@@ -159,4 +159,35 @@ const payBooking = async (parents, args, { user }, info) => {
   return updateBooking;
 };
 
-export default { bookTicket, verifyPayment, payBooking };
+const issueTicket = async (parents, args, { user }, info) => {
+  const { bookingId } = args;
+
+  const updateBooking = await Booking.findByIdAndUpdate(
+    { _id: bookingId },
+    {
+      $set: { status: "issued" },
+    },
+    { new: true }
+  );
+
+  const lastTicket = await Ticket.findOne().sort({ ticketNo: -1 }).limit(1);
+  let lastTicketNo;
+  lastTicket ? (lastTicketNo = lastTicket.ticketNo) : (lastTicketNo = 1000);
+  let ticketNo = lastTicketNo + 1;
+  let ticket;
+
+  if (updateBooking) {
+    const newTicket = new Ticket({
+      ...args.input,
+      booking: bookingId,
+      ticketNo,
+    });
+    ticket = await newTicket
+      .save()
+      .then((t) => t.populate({ path: "booking" }).execPopulate());
+  }
+
+  return ticket;
+};
+
+export default { bookTicket, verifyPayment, payBooking, issueTicket };
