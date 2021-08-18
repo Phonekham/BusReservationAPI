@@ -22,7 +22,13 @@ const checkDepartureTime = async (parents, args, context, info) => {
 
 const getBookedSeats = async (parents, args, context, info) => {
   const { departureDate, departureTime } = args;
-
+  // const d = new Date(departureDate);
+  // const year = d.getFullYear();
+  // const month = d.getMonth();
+  // const dates = d.getDate();
+  // const dp = `${year}-0${month + 1}-${dates - 1}`;
+  // console.log(dp);
+  // console.log(departureDate, "paer");
   const date = await BookingItem.aggregate([
     {
       $project: {
@@ -55,6 +61,7 @@ const bookings = async (parents, args, context, info) => {
   const { status } = args;
   if (status) {
     const bookings = await Booking.find({ status })
+      .sort({ createdAt: -1 })
       .populate({
         path: "bookingItem",
         populate: { path: "route departureTime seat" },
@@ -65,6 +72,7 @@ const bookings = async (parents, args, context, info) => {
     return bookings;
   } else {
     const bookings = await Booking.find({})
+      .sort({ status: 1 })
       .populate({
         path: "bookingItem",
         populate: { path: "route departureTime seat" },
@@ -74,6 +82,18 @@ const bookings = async (parents, args, context, info) => {
       .populate({ path: "departureTime" });
     return bookings;
   }
+};
+
+const paidBookings = async (parents, args, context, info) => {
+  const bookings = await Booking.find({ status: "paid" })
+    .populate({
+      path: "bookingItem",
+      populate: { path: "route departureTime seat" },
+    })
+    .populate({ path: "member" })
+    .populate({ path: "route" })
+    .populate({ path: "departureTime" });
+  return bookings;
 };
 
 const userBookings = async (parents, args, context, info) => {
@@ -113,4 +133,5 @@ export default {
   bookingDetail,
   userBookings,
   queryPayment,
+  paidBookings,
 };
